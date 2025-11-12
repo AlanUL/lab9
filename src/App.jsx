@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
-import BlogPostsPage from "./pages/BlogPostsPage";
-import IndividualPostPage from "./pages/IndividualPostPage";
+import BlogPostsPage from "./Pages/BlogPostsPage";
+import IndividualPostPage from "./Pages/IndividualPostPage";
 import ContactPage from "./Pages/ContactPage";
 import ThemeContext from "./ThemeContext";
 
