@@ -7,6 +7,13 @@ import IndividualPostPage from "./Pages/IndividualPostPage";
 import ContactPage from "./Pages/ContactPage";
 import ThemeContext from "./ThemeContext";
 
+// --- New Imports ---
+import { AuthProvider } from "./context/AuthContext";
+import LoginPage from "./Pages/LoginPage";
+import ProtectedRoute from "./Components/ProtectedRoute";
+// --- End New Imports ---
+
+
 function App() {
     const [theme, setTheme] = useState("dark");
 
@@ -16,21 +23,43 @@ function App() {
     };
 
     return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            <BrowserRouter>
-                <div className="app-container">
-                    <Header />
-                    <main className="main-content">
-                        <Routes>
-                            <Route path="/" element={<BlogPostsPage />} />
-                            <Route path="/post/:postId" element={<IndividualPostPage />} />
-                            <Route path="/contact" element={<ContactPage />} />
-                        </Routes>
-                    </main>
-                    <Footer />
-                </div>
-            </BrowserRouter>
-        </ThemeContext.Provider>
+        // Wrap with AuthProvider so all components can access auth state
+        <AuthProvider>
+            <ThemeContext.Provider value={{ theme, toggleTheme }}>
+                <BrowserRouter>
+                    <div className="app-container">
+                        <Header />
+                        <main className="main-content">
+                            <Routes>
+                                {/* Protected Routes: */}
+                                <Route 
+                                    path="/" 
+                                    element={
+                                        <ProtectedRoute>
+                                            <BlogPostsPage />
+                                        </ProtectedRoute>
+                                    } 
+                                />
+                                <Route 
+                                    path="/post/:postId" 
+                                    element={
+                                        <ProtectedRoute>
+                                            <IndividualPostPage />
+                                        </ProtectedRoute>
+                                    } 
+                                />
+                                
+                                {/* Public Routes: */}
+                                <Route path="/contact" element={<ContactPage />} />
+                                <Route path="/login" element={<LoginPage />} />
+
+                            </Routes>
+                        </main>
+                        <Footer />
+                    </div>
+                </BrowserRouter>
+            </ThemeContext.Provider>
+        </AuthProvider>
     );
 }
 

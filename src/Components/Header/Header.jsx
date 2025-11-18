@@ -1,8 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 function Header() {
     const [lightMode, setLightMode] = useState(false);
+    
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate("/login");
+    };
 
     const toggleTheme = () => {
         setLightMode(!lightMode);
@@ -15,6 +24,18 @@ function Header() {
             <nav className="main-nav">
                 <Link to="/">Blog</Link>
                 <Link to="/contact">Contact</Link>
+                
+                {user ? (
+                    <div className="auth-links">
+                        <span className="welcome-user">Welcome, {user.name}</span>
+                        <button onClick={handleLogout} className="auth-btn">
+                            Logout
+                        </button>
+                    </div>
+                ) : (
+                    <Link to="/login" className="auth-link">Login</Link>
+                )}
+
             </nav>
             <button onClick={toggleTheme} className="theme-btn">
                 {lightMode ? "Dark Mode" : "Light Mode"}
