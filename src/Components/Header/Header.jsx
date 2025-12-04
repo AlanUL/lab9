@@ -27,14 +27,14 @@ function Header() {
                 <Link to="/contact">Contact</Link>
 
                 {user ? (
-                    <div className="auth-links">
+                    <>
                         <span className="welcome-user">Welcome, {user.name}</span>
-                        <button onClick={handleLogout} className="auth-btn">
+                        <button onClick={handleLogout} className="logout-link">
                             Logout
                         </button>
-                    </div>
+                    </>
                 ) : (
-                    <Link to="/login" className="auth-link">Login</Link>
+                    <Link to="/login">Login</Link>
                 )}
 
             </nav>

@@ -27,10 +27,8 @@ function App() {
                         <Header />
                         <main className="main-content">
                             <Routes>
-                                {/* Public Homepage */}
                                 <Route path="/" element={<HomePage />} />
                                 
-                                {/* Protected Blog Routes */}
                                 <Route 
                                     path="/blog" 
                                     element={
@@ -48,7 +46,6 @@ function App() {
                                     } 
                                 />
                                 
-                                {/* Public Routes */}
                                 <Route path="/contact" element={<ContactPage />} />
                                 <Route path="/login" element={<LoginPage />} />
                             </Routes>
